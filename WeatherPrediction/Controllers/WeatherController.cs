@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WeatherPrediction.BLL.DTOs;
 using WeatherPrediction.BLL.Interfaces;
+using WeatherPrediction.DTOs;
 
 namespace WeatherPrediction.Controllers
 {
@@ -17,10 +18,9 @@ namespace WeatherPrediction.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<WeatherPredictionResult>> GetDailyMean(
-         [FromQuery] float lat, [FromQuery] float lon, [FromQuery] DateTime date, [FromQuery] bool HigherAccuracy = true)
+        public async Task<ActionResult<WeatherPredictionResult>> GetDailyMean([FromQuery] WeatherRequestDTO Request)
         {
-            var result = await _weatherService.GetDailyProbabilities(lat, lon, date, HigherAccuracy);
+            var result = await _weatherService.GetDailyProbabilities(Request.lat, Request.lon, Request.date, Request.HigherAccuracy);
             if (result == null)
                 return NotFound("Could not fetch weather data from NASA API.");
 
