@@ -81,7 +81,7 @@ Sends a custom weather-related prompt to Gemini AI for recommendations.
 🧠 Caching Strategy
 Uses IMemoryCache for short-term in-memory storage.
 
-Configurable TTL (Time-To-Live) and max entries.
+Configurable TTL (Time-To-Live) .
 
 Reduces load on NASA API and accelerates repeated requests.
 
