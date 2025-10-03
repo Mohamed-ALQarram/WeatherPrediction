@@ -44,13 +44,11 @@ WeatherAPI/
    cd weather-api
 Restore dependencies:
 
-bash
-Copy code
+
 dotnet restore
 Configure your appsettings.json with the required API keys:
 
-json
-Copy code
+
 {
   "Gemini": {
     "ApiKey": "YOUR_GEMINI_API_KEY"
