@@ -4,6 +4,7 @@ using WeatherPrediction.BLL.Interfaces;
 using WeatherPrediction.BLL.Services;
 using WeatherPrediction.DAL.Clients;
 using WeatherPrediction.DAL.Interfaces;
+using WeatherPrediction.Middle_ware;
 
 namespace WeatherPrediction
 {
@@ -32,6 +33,7 @@ namespace WeatherPrediction
 
             builder.Services.AddScoped<IGoogleApiClient, GoogleApiClient>();
             builder.Services.AddScoped<IGoogleAiService, GoogleApiService>();
+          
 
             builder.Services.AddCors(options =>
             {
@@ -57,6 +59,8 @@ namespace WeatherPrediction
             app.UseHttpsRedirection();
 
             app.UseCors("AllowAll");
+
+            app.UseMiddleware<GlobalExceptionHandler>();
 
             app.UseAuthorization();
 

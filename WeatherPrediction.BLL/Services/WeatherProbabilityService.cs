@@ -41,7 +41,7 @@ namespace WeatherPrediction.BLL.Services
         }
         private WeatherPredictionResult CalculateProbabilities(List<WeatherParameters> weatherRecords)
         {
-            int NumOfHotDays = 0, NumOfColdDays = 0, NumOfWindyDays = 0, NumOfWetDays = 0,
+            float NumOfHotDays = 0, NumOfColdDays = 0, NumOfWindyDays = 0, NumOfWetDays = 0,
                 NumOfHumidDays = 0, NumOfDryDays=0, NumOfSnowDays=0, NumOfSnowPrecipitation=0;
             float TotalTemp = 0, TotalHumidty = 0, TotalPrecipitation = 0, TotalWindSpeed = 0, TotalSnowDepth=0, TotalSnowPrecipitation=0;
 
@@ -90,7 +90,7 @@ namespace WeatherPrediction.BLL.Services
                     MinTemp = MinTemp,
                     ColdTempPercent = NumOfColdDays / count * 100.0f,
                     HotTempPercent = NumOfHotDays / count * 100.0f,
-                    Description = WeatherConditionHelper.GetTemperatureCondition(AvgTemp)
+                    Description = WeatherConditionHelper.GetTemperatureCondition(MaxTemp)
                 },
                 Humidity = new HumidityDetails
                 {
