@@ -1,4 +1,4 @@
-
+﻿
 using Microsoft.Extensions.Caching.Memory;
 using WeatherPrediction.BLL.Interfaces;
 using WeatherPrediction.BLL.Services;
@@ -51,8 +51,12 @@ namespace WeatherPrediction
 
             // Configure the HTTP request pipeline.
             app.UseSwagger();
-            app.UseSwaggerUI();
-            
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty; 
+            });
+
 
             app.UseHttpsRedirection();
 
