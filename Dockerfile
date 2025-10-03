@@ -3,20 +3,20 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # نسخ ملفات المشاريع
-COPY ["WillItRainOnMyParade/WillItRainOnMyParade.csproj", "WillItRainOnMyParade/"]
-COPY ["WillItRainOnMyParade.BLL/WillItRainOnMyParade.BLL.csproj", "WillItRainOnMyParade.BLL/"]
-COPY ["WillItRainOnMyParade.DAL/WillItRainOnMyParade.DAL.csproj", "WillItRainOnMyParade.DAL/"]
+COPY ["WeatherPrediction/WeatherPrediction.csproj", "WeatherPrediction/"]
+COPY ["WeatherPrediction.BLL/WeatherPrediction.BLL.csproj", "WeatherPrediction.BLL/"]
+COPY ["WeatherPrediction.DAL/WeatherPrediction.DAL.csproj", "WeatherPrediction.DAL/"]
 
 # استعادة الباكدجات
-RUN dotnet restore "WillItRainOnMyParade/WillItRainOnMyParade.csproj"
+RUN dotnet restore "WeatherPrediction/WeatherPrediction.csproj"
 
 # نسخ كل الملفات
 COPY . .
 
 # بناء ونشر
-WORKDIR "/src/WillItRainOnMyParade"
-RUN dotnet build "WillItRainOnMyParade.csproj" -c Release -o /app/build
-RUN dotnet publish "WillItRainOnMyParade.csproj" -c Release -o /app/publish /p:UseAppHost=false
+WORKDIR "/src/WeatherPrediction"
+RUN dotnet build "WeatherPrediction.csproj" -c Release -o /app/build
+RUN dotnet publish "WeatherPrediction.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
