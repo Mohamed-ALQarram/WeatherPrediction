@@ -26,9 +26,9 @@ namespace WeatherPrediction.BLL.Services
             DateTime endDate = new DateTime(DateTime.Now.AddYears(-1).Year, 12, 31);
             DateTime startDate;
             if (HigherAccuracy)
-                startDate = new DateTime(1981, 1, 1);
+                startDate = new DateTime(1981, date.Month, date.Day);
             else
-                startDate = endDate.AddYears(-10);
+                startDate = new DateTime(endDate.AddYears(-10).Year, date.Month, date.Day);
 
             var weatherRecords = await nasaPowerApiClient.GetDailyDataAsync(lat, lon, startDate, endDate);
 
@@ -44,11 +44,13 @@ namespace WeatherPrediction.BLL.Services
             int NumOfHotDays = 0, NumOfColdDays = 0, NumOfWindyDays = 0, NumOfWetDays = 0,
                 NumOfHumidDays = 0, NumOfDryDays=0, NumOfSnowDays=0, NumOfSnowPrecipitation=0;
             float TotalTemp = 0, TotalHumidty = 0, TotalPrecipitation = 0, TotalWindSpeed = 0, TotalSnowDepth=0, TotalSnowPrecipitation=0;
+
+            float MaxTemp = 0, MinTemp=float.MaxValue;
             int count = weatherRecords.Count;
             foreach (var weatherRecord in weatherRecords)
             {
-                if (weatherRecord.T2M >= WeatherThresholds.VeryHot) NumOfHotDays++;
-                else if (weatherRecord.T2M <= WeatherThresholds.VeryCold) NumOfColdDays++;
+                if (weatherRecord.T2M_MAX >= WeatherThresholds.VeryHot) NumOfHotDays++;
+                else if (weatherRecord.T2M_MIN <= WeatherThresholds.VeryCold) NumOfColdDays++;
 
                 if (weatherRecord.WS2M >= WeatherThresholds.VeryWindy) NumOfWindyDays++;
 
@@ -60,6 +62,8 @@ namespace WeatherPrediction.BLL.Services
                 if (weatherRecord.SNODP >= WeatherThresholds.HeavySnowDepth) NumOfSnowDays++;
                 if (weatherRecord.PRECSNO >= WeatherThresholds.HeavySnowfall) NumOfSnowPrecipitation++;
 
+                MaxTemp = MaxTemp > weatherRecord.T2M_MAX ? MaxTemp : weatherRecord.T2M_MAX;
+                MinTemp = MinTemp < weatherRecord.T2M_MIN ? MinTemp : weatherRecord.T2M_MIN;
                 TotalTemp += weatherRecord.T2M;
                 TotalHumidty += weatherRecord.RH2M;
                 TotalPrecipitation += weatherRecord.PRECTOTCORR;
@@ -82,6 +86,8 @@ namespace WeatherPrediction.BLL.Services
                 Temperature = new TempDetails
                 {
                     AvgTemp = AvgTemp,
+                    MaxTemp = MaxTemp,
+                    MinTemp = MinTemp,
                     ColdTempPercent = NumOfColdDays / count * 100.0f,
                     HotTempPercent = NumOfHotDays / count * 100.0f,
                     Description = WeatherConditionHelper.GetTemperatureCondition(AvgTemp)
@@ -119,7 +125,7 @@ namespace WeatherPrediction.BLL.Services
 
                 #endregion            
             };
-            
+            Result.parameters = weatherRecords;
                 return Result;
         }
     }

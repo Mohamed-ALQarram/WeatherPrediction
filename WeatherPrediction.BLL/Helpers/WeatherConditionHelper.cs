@@ -10,7 +10,7 @@ namespace WeatherPrediction.BLL.Helpers
     {
         public static string GetTemperatureCondition(float t2m)
         {
-            if (t2m <= WeatherThresholds.VeryHot) return "Extreme Heat";
+            if (t2m >= WeatherThresholds.VeryHot) return "Extreme Heat";
             if (t2m < WeatherThresholds.VeryCold) return "Very Cold";
             return "Comfortable Temperature";
         }
@@ -26,7 +26,7 @@ namespace WeatherPrediction.BLL.Helpers
         {
             if (humidity <= WeatherThresholds.VeryDry) return "Very Dry";
             if (humidity >= WeatherThresholds.VeryHumid) return "Very Humid";
-            return "Very Humid";
+            return "Moderate Humid";
         }
 
         public static string GetWindCondition(float windSpeed)
@@ -38,7 +38,7 @@ namespace WeatherPrediction.BLL.Helpers
         public static string GetSnowPrecipCondition(float snowPrecip)
         {
             if (snowPrecip == 0) return "No Snow";
-            if (snowPrecip <= WeatherThresholds.HeavySnowfall) return "Heavy Snowfall";
+            if (snowPrecip >= WeatherThresholds.HeavySnowfall) return "Heavy Snowfall";
             return "Moderate Snow";
         }
 

@@ -27,7 +27,7 @@ namespace WeatherPrediction.DAL.Clients
             string url = config["NasaPowerAPI:URL"] +
              $"?start={start:yyyyMMdd}&end={end:yyyyMMdd}" +
              $"&latitude={lat}&longitude={lon}" +
-             $"&parameters=T2M,PRECTOTCORR,RH2M,WS2M,PRECSNO,SNODP" +
+             $"&parameters=T2M,T2M_MAX,T2M_MIN,PRECTOTCORR,RH2M,WS2M,PRECSNO,SNODP" +
              $"&community=ag&format=JSON";
 
 

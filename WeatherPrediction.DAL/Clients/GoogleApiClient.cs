@@ -9,7 +9,7 @@ using WeatherPrediction.DAL.Interfaces;
 
 namespace WeatherPrediction.DAL.Clients
 {
-    internal class GoogleApiClient : IGoogleApiClient
+    public class GoogleApiClient : IGoogleApiClient
     {
         private readonly IConfiguration config;
 

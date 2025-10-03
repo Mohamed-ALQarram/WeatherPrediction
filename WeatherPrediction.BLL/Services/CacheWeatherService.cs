@@ -49,8 +49,7 @@ namespace WeatherPrediction.BLL.Services
                     _cache.Remove(key);
                 }
 
-
-                return result;
+                return result!;
             }
             return await _inner.GetDailyProbabilities(lat, lon, date, HigherAccuracy);
         }

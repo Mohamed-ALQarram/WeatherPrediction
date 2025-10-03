@@ -14,6 +14,8 @@ namespace WeatherPrediction.DAL.Helper
                 .GetProperty("parameter");
 
             var t2m = param.GetProperty("T2M");
+            var t2m_max = param.GetProperty("T2M_MAX");
+            var t2m_min = param.GetProperty("T2M_MIN");
             var prectot = param.GetProperty("PRECTOTCORR");
             var rh2m = param.GetProperty("RH2M");
             var ws2m = param.GetProperty("WS2M");
@@ -25,6 +27,8 @@ namespace WeatherPrediction.DAL.Helper
                 string dateStr = new DateTime(year, startDate.Month, startDate.Day).ToString("yyyyMMdd");
 
                 if (!t2m.TryGetProperty(dateStr, out var t2mValue)) continue;
+                if (!t2m_max.TryGetProperty(dateStr, out var t2m_maxValue)) continue;
+                if (!t2m_min.TryGetProperty(dateStr, out var t2m_minValue)) continue;
                 if (!prectot.TryGetProperty(dateStr, out var prectotValue)) continue;
                 if (!rh2m.TryGetProperty(dateStr, out var rh2mValue)) continue;
                 if (!ws2m.TryGetProperty(dateStr, out var ws2mValue)) continue;
@@ -35,6 +39,8 @@ namespace WeatherPrediction.DAL.Helper
                 {
                     Date = new DateTime(year, startDate.Month, startDate.Day),
                     T2M = t2mValue.GetSingle(),
+                    T2M_MAX = t2m_maxValue.GetSingle(),
+                    T2M_MIN = t2m_minValue.GetSingle(),
                     PRECTOTCORR = prectotValue.GetSingle(),
                     RH2M = rh2mValue.GetSingle(),
                     WS2M = ws2mValue.GetSingle(),

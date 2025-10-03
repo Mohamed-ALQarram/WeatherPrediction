@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeatherPrediction.DAL.DTOs;
 
 namespace WeatherPrediction.BLL.DTOs
 {
@@ -14,6 +15,8 @@ namespace WeatherPrediction.BLL.DTOs
         public SnowPrecicptationDetails SnowPrecipitation { get; set; } = new SnowPrecicptationDetails();
         public WindSpeedDetails WindSpeed { get; set; } = new WindSpeedDetails();
         public SnowDepthDetails SnowDepth { get; set; } = new SnowDepthDetails();
+
+        public List<WeatherParameters> parameters { get; set; } = new List<WeatherParameters>();
     }
 
 }
